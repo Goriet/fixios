@@ -365,7 +365,6 @@ class UserProvider extends PsProvider {
 
   Future<FirebaseUser> _getFirebaseUserWithAppleId() async {
     final List<Scope> scopes = <Scope>[Scope.email, Scope.fullName];
-
     // 1. perform the sign-in request
     final AuthorizationResult result = await AppleSignIn.performRequests(
         <AppleIdRequest>[AppleIdRequest(requestedScopes: scopes)]);
@@ -402,7 +401,6 @@ class UserProvider extends PsProvider {
           code: 'ERROR_AUTHORIZATION_DENIED',
           message: result.error.toString(),
         );
-
       case AuthorizationStatus.cancelled:
         throw PlatformException(
           code: 'ERROR_ABORTED_BY_USER',

@@ -6,7 +6,6 @@ import 'package:fluttermultistoreflutter/viewobject/common/language.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttermultistoreflutter/config/ps_theme_data.dart';
@@ -123,33 +122,33 @@ class _PSAppState extends State<PSApp> {
     PsColors.loadColor(context);
 
     return MultiProvider(
-        providers: <SingleChildWidget>[
-          ...providers,
-        ],
-        child: DynamicTheme(
-            defaultBrightness: Brightness.light,
-            data: (Brightness brightness) {
-              if (brightness == Brightness.light) {
-                return themeData(ThemeData.light());
-              } else {
-                return themeData(ThemeData.dark());
-              }
-            },
-            themedWidgetBuilder: (BuildContext context, ThemeData theme) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'A Comprar',
-                theme: theme,
-                initialRoute: '/',
-                onGenerateRoute: router.generateRoute,
-                localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  EasyLocalization.of(context).delegate,
-                ],
-                supportedLocales: EasyLocalization.of(context).supportedLocales,
-                locale: EasyLocalization.of(context).locale,
-              );
-            }));
+      providers: <SingleChildWidget>[
+        ...providers,
+      ],
+      child: DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (Brightness brightness) {
+          if (brightness == Brightness.light) {
+            return themeData(ThemeData.light());
+          } else {
+            return themeData(ThemeData.dark());
+          }
+        },
+        themedWidgetBuilder: (BuildContext context, ThemeData theme) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'A Comprar',
+            theme: theme,
+            initialRoute: '/',
+            onGenerateRoute: router.generateRoute,
+            localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+              EasyLocalization.of(context).delegate,
+            ],
+            supportedLocales: EasyLocalization.of(context).supportedLocales,
+            locale: EasyLocalization.of(context).locale,
+          );
+        },
+      ),
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:apple_sign_in/apple_sign_in_button.dart';
+import 'package:apple_sign_in/apple_sign_in_button.dart' as apple;
 import 'package:fluttermultistoreflutter/api/common/ps_resource.dart';
 import 'package:fluttermultistoreflutter/config/ps_colors.dart';
 import 'package:fluttermultistoreflutter/config/ps_config.dart';
@@ -731,18 +731,26 @@ class _LoginWithAppleIdWidget extends StatelessWidget {
     final UserProvider _userProvider =
         Provider.of<UserProvider>(context, listen: false);
     return Container(
-        margin: const EdgeInsets.only(
-            left: PsDimens.space32,
-            top: PsDimens.space8,
-            right: PsDimens.space32),
-        child: AppleSignInButton(
-          //style: ButtonStyle.black, // style as needed
-          type: ButtonType.signIn, // style as needed
-          onPressed: () async {
-            await _userProvider.loginWithAppleId(
-                context, onAppleIdSignInSelected);
-          },
-        ));
+      margin: const EdgeInsets.only(
+          left: PsDimens.space32,
+          top: PsDimens.space8,
+          right: PsDimens.space32),
+      child: apple.AppleSignInButton(
+        // style as needed
+        style: apple.ButtonStyle.black,
+        type: apple.ButtonType.signIn, // style as needed
+        onPressed: () async {
+          await _userProvider
+              .loginWithAppleId(context, onAppleIdSignInSelected)
+              .then((value) {
+            Navigator.pushReplacementNamed(
+              context,
+              RoutePaths.shopDashboard,
+            );
+          });
+        },
+      ),
+    );
   }
 }
 
